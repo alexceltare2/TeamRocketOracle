@@ -39,31 +39,32 @@ CREATE TABLE `team_rocket_project`.`Jobs` (
     FOREIGN KEY (`Staff_ID`) REFERENCES `staff` (`Staff_ID`)
 );
 
-INSERT INTO staff VALUES ('JWI12', 'James', 'Wilson', 'Main Street', 'ML11 8EZ', '07341829218', 'Yes', 'No', 'No', 'No', 'Yes', 'No' ),
-('STE01', 'Steven', 'Henderson', 'Back Street', 'ML1 8EQ', '07341658218', 'No', 'No', 'No', 'No', 'No', 'Yes' ),
-('ABC01', 'James', 'Jone', 'North Street', 'ML1 8QT', '07341658218', 'No', 'No', 'No', 'No', 'No', 'Yes' ),
-('ABC02', 'George', 'Wylie', 'South Street', 'ML1 8FT', '07341658218', 'No', 'No', 'No', 'No', 'No', 'Yes' ),
-('ABC03', 'Jade', 'Samson', 'East Street', 'ML1 8ED', '07341658218', 'Yes', 'Yes', 'No', 'No', 'No', 'No' ),
-('ABC04', 'Jordan', 'Jones', 'West Street', 'ML1 8ED', '07341658218', 'Yes', 'No', 'Yes', 'No', 'No', 'No' ),
-('ABC05', 'Kriss', 'Jobs', 'Back Road', 'ML1 8VT', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No' ),
-('ABC06', 'Susan', 'Boyle', 'Back Lane', 'ML1 8BT', '07341658218', 'Yes', 'No', 'No', 'Yes', 'No', 'No' ),
-('ABC07', 'David', 'Davidson', 'Back End', 'ML1 8EG', '07341658218', 'Yes', 'No', 'Yes', 'No', 'No', 'No' ),
-('ABC08', 'William', 'Williamson', 'Back Avenue', 'ML1 9ET', '07341658218', 'Yes', 'Yes', 'No', 'No', 'No', 'No' ),
-('ABC09', 'Sarah', 'MacDonald', 'High Street', 'ML1 7XY', '07341658218', 'No', 'Yes', 'No', 'No', 'No', 'No'),
-('ABC10', 'Andrew', 'McLeod', 'Low Street', 'ML1 6YZ', '07341658218', 'Yes', 'No', 'No', 'Yes', 'No', 'No'),
-('ABC11', 'Karen', 'MacKenzie', 'Market Street', 'ML1 5WV', '07341658218', 'No', 'Yes', 'No', 'No', 'No', 'No'),
-('ABC12', 'Stephen', 'Graham', 'Station Road', 'ML1 4TU', '07341658218', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-('ABC13', 'Laura', 'Murray', 'Church Lane', 'ML1 3SR', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No'),
-('ABC14', 'Robert', 'Fraser', 'Garden Close', 'ML1 2PQ', '07341658218', 'No', 'Yes', 'No', 'No', 'No', 'No'),
-('ABC15', 'Rebecca', 'Campbell', 'River View', 'ML1 1NO', '07341658218', 'Yes', 'No', 'No', 'Yes', 'No', 'No'),
-('ABC16', 'Michael', 'Scott', 'Castle Street', 'ML2 9MN', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No'),
-('ABC17', 'Nicole', 'Stewart', 'Park Avenue', 'ML2 8LK', '07341658218', 'Yes', 'No', 'Yes', 'No', 'No', 'No'),
-('ABC18', 'Daniel', 'Black', 'Meadow Lane', 'ML2 7IJ', '07341658218', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-('ABC19', 'Emma', 'Robertson', 'Sunset Drive', 'ML2 6HG', '07341658218', 'No', 'Yes', 'No', 'Yes', 'No', 'No'),
-('ABC20', 'John', 'Reid', 'Hillside Road', 'ML2 5EF', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No');
+INSERT INTO staff VALUES
+('JWI12', 'James', 'Wilson', 'Main Street', 'ML11 8EZ', '07341829218', 'Yes', 'No', 'No', 'No', 'Yes', 'No', NULL),
+('STE01', 'Steven', 'Henderson', 'Back Street', 'ML1 8EQ', '07341658218', 'No', 'No', 'No', 'No', 'No', 'Yes', NULL),
+('ABC01', 'James', 'Jone', 'North Street', 'ML1 8QT', '07341658218', 'No', 'No', 'No', 'No', 'No', 'Yes', NULL),
+('ABC02', 'George', 'Wylie', 'South Street', 'ML1 8FT', '07341658218', 'No', 'No', 'No', 'No', 'No', 'Yes', NULL),
+('ABC03', 'Jade', 'Samson', 'East Street', 'ML1 8ED', '07341658218', 'Yes', 'Yes', 'No', 'No', 'No', 'No', NULL),
+('ABC04', 'Jordan', 'Jones', 'West Street', 'ML1 8ED', '07341658218', 'Yes', 'No', 'Yes', 'No', 'No', 'No', NULL),
+('ABC05', 'Kriss', 'Jobs', 'Back Road', 'ML1 8VT', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No', NULL),
+('ABC06', 'Susan', 'Boyle', 'Back Lane', 'ML1 8BT', '07341658218', 'Yes', 'No', 'No', 'Yes', 'No', 'No', NULL),
+('ABC07', 'David', 'Davidson', 'Back End', 'ML1 8EG', '07341658218', 'Yes', 'No', 'Yes', 'No', 'No', 'No', NULL),
+('ABC08', 'William', 'Williamson', 'Back Avenue', 'ML1 9ET', '07341658218', 'Yes', 'Yes', 'No', 'No', 'No', 'No', NULL),
+('ABC09', 'Sarah', 'MacDonald', 'High Street', 'ML1 7XY', '07341658218', 'No', 'Yes', 'No', 'No', 'No', 'No', NULL),
+('ABC10', 'Andrew', 'McLeod', 'Low Street', 'ML1 6YZ', '07341658218', 'Yes', 'No', 'No', 'Yes', 'No', 'No', NULL),
+('ABC11', 'Karen', 'MacKenzie', 'Market Street', 'ML1 5WV', '07341658218', 'No', 'Yes', 'No', 'No', 'No', 'No', NULL),
+('ABC12', 'Stephen', 'Graham', 'Station Road', 'ML1 4TU', '07341658218', 'No', 'No', 'Yes', 'No', 'No', 'No', NULL),
+('ABC13', 'Laura', 'Murray', 'Church Lane', 'ML1 3SR', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No', NULL),
+('ABC14', 'Robert', 'Fraser', 'Garden Close', 'ML1 2PQ', '07341658218', 'No', 'Yes', 'No', 'No', 'No', 'No', NULL),
+('ABC15', 'Rebecca', 'Campbell', 'River View', 'ML1 1NO', '07341658218', 'Yes', 'No', 'No', 'Yes', 'No', 'No', NULL),
+('ABC16', 'Michael', 'Scott', 'Castle Street', 'ML2 9MN', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No', NULL),
+('ABC17', 'Nicole', 'Stewart', 'Park Avenue', 'ML2 8LK', '07341658218', 'Yes', 'No', 'Yes', 'No', 'No', 'No', NULL),
+('ABC18', 'Daniel', 'Black', 'Meadow Lane', 'ML2 7IJ', '07341658218', 'No', 'No', 'Yes', 'No', 'No', 'No', NULL),
+('ABC19', 'Emma', 'Robertson', 'Sunset Drive', 'ML2 6HG', '07341658218', 'No', 'Yes', 'No', 'Yes', 'No', 'No', NULL),
+('ABC20', 'John', 'Reid', 'Hillside Road', 'ML2 5EF', '07341658218', 'Yes', 'No', 'No', 'No', 'Yes', 'No', NULL);
 
 
-INSERT INTO Jobs (`Customer Last Name`, `Address`, `Postcode`, `Phone_Number`, `Visit_Type`, `Job_Date`, `Start_Time`, `End_Time`)
+INSERT INTO Jobs (`Customer_Last_Name`, `Address`, `Postcode`, `Phone_Number`, `Visit_Type`, `Job_Date`, `Start_Time`, `End_Time`)
 VALUES
 ('Smith', '5 Main Road', 'ML11 1AA', '01555 123 456', 'DTH', '2023-05-16', NULL, NULL),
 ('Wilson', '10 High Street', 'ML1 1AB', '01555 456 456', 'DTH', '2023-05-16', NULL, NULL),
