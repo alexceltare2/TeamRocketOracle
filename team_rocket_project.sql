@@ -20,11 +20,12 @@ CREATE TABLE `team_rocket_project`.`staff` (
  	`MDU_Skill` ENUM('Yes', 'No'),
  	`FTTP_Skilll` ENUM('Yes', 'No'),
     `Admin` ENUM('Yes', 'No'),
+   	`Password` VARCHAR(45) NULL,   
  	PRIMARY KEY (`Staff_ID`));
   
 CREATE TABLE `team_rocket_project`.`Jobs` (
     `Job_ID` INT AUTO_INCREMENT NOT NULL,
-    `Customer Last Name` VARCHAR(45),
+    `Customer_Last_Name` VARCHAR(45),
     `Address` VARCHAR(45),
     `Postcode` VARCHAR(45),
     `Phone_Number` VARCHAR(45),
@@ -33,6 +34,7 @@ CREATE TABLE `team_rocket_project`.`Jobs` (
     `Job_Date` DATE,
     `Start_Time` TIMESTAMP,
     `End_Time` TIMESTAMP,
+    `Is_Not_Done` ENUM('Yes', 'No'),
     PRIMARY KEY (`Job_ID`),
     FOREIGN KEY (`Staff_ID`) REFERENCES `staff` (`Staff_ID`)
 );
