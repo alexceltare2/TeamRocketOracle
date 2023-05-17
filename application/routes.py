@@ -67,9 +67,9 @@ def home():
     cursor = get_db().cursor()
     cursor.execute("SELECT Job_ID, Customer_Last_Name, Postcode from Jobs")
     result = cursor.fetchall()
-    if auth.current_user()=="admin":
-        cursor.execute("SELECT Staff_ID, First_Name, Last_Name from Staff")
-        result = cursor.fetchall()
+#    if auth.current_user()=="admin":
+ #       cursor.execute("SELECT Staff_ID, First_Name, Last_Name from Staff")
+ #       result = cursor.fetchall()
         app.logger.info(result)
     return render_template(
                 'home.html',
