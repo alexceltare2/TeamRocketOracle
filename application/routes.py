@@ -173,3 +173,23 @@ def actor_delete(id):
         message = f"error in insert operation: {e}"
         flash(message)
     return redirect(url_for('home'))
+
+@app.route('/engineer', methods=['GET', 'POST'])
+@auth.login_required
+def engineer():
+    cursor = get_db().cursor()
+    cursor.execute("SELECT Job_ID, Customer_Last_Name, Address, Postcode from Jobs")
+    result = cursor.fetchall()
+    if auth.current_user()=="admin":
+        logged="Admin"
+    else:
+        logged="Engineer"
+    #    cursor.execute("SELECT Staff_ID, First_Name, Last_Name from Staff")
+    #    result = cursor.fetchall()
+    app.logger.info(result)
+    return render_template(
+                'engineer.html',
+                title=f"Welcome to the the Oracle job system.",
+                description=f"You are logged in as {logged}.",
+                records=result,
+        user = auth.current_user())
