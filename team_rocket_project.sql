@@ -127,3 +127,23 @@ VALUES
 ('Martin', '150 Orchid Road', 'AB67 8CD', '03456 789 012', 'DTH', '2023-05-16', NULL, NULL),
 ('Thompson', '160 Tulip Street', 'CD78 9EF', '04567 890 123', 'BB', '2023-05-16', NULL, NULL),
 ('Garcia', '170 Poppy Close', 'EF90 1GH', '05678 901 234', 'SE', '2023-05-16', NULL, NULL);
+
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'STE01' WHERE (`Job_ID` = '5');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'STE01' WHERE (`Job_ID` = '6');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC03' WHERE (`Job_ID` = '11');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC03' WHERE (`Job_ID` = '8');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC12' WHERE (`Job_ID` = '23');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC12' WHERE (`Job_ID` = '27');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC20' WHERE (`Job_ID` = '33');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC20' WHERE (`Job_ID` = '30');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC18' WHERE (`Job_ID` = '52');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC18' WHERE (`Job_ID` = '55');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC19' WHERE (`Job_ID` = '58');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC14' WHERE (`Job_ID` = '50');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC14' WHERE (`Job_ID` = '44');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC14' WHERE (`Job_ID` = '38');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC14' WHERE (`Job_ID` = '41');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC08' WHERE (`Job_ID` = '47');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC08' WHERE (`Job_ID` = '39');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC08' WHERE (`Job_ID` = '14');
+UPDATE `team_rocket_project`.`jobs` SET `Staff_ID` = 'ABC08' WHERE (`Job_ID` = '18');
