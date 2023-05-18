@@ -65,16 +65,19 @@ def get_date():
 def home():
     """Landing page. Showing Actors    """
     cursor = get_db().cursor()
-    cursor.execute("SELECT Job_ID, Customer_Last_Name, Postcode from Jobs")
+    cursor.execute("SELECT Job_ID, Customer_Last_Name, Address, Postcode from Jobs")
     result = cursor.fetchall()
-#    if auth.current_user()=="admin":
- #       cursor.execute("SELECT Staff_ID, First_Name, Last_Name from Staff")
- #       result = cursor.fetchall()
-        app.logger.info(result)
+    if auth.current_user()=="admin":
+        logged="Admin"
+    else:
+        logged="Engineer"
+    #    cursor.execute("SELECT Staff_ID, First_Name, Last_Name from Staff")
+    #    result = cursor.fetchall()
+    app.logger.info(result)
     return render_template(
                 'home.html',
-                title="All Jobs",
-                description=f"Python, MySQL, Flask & Jinja. {get_date()}",
+                title=f"Welcome to the the Oracle job system.",
+                description=f"You are logged in as {logged}.",
                 records=result,
         user = auth.current_user()
     )
@@ -129,7 +132,12 @@ def register2():
         except Exception as e:
             message = f"error in insert operation: {e}"
             flash(message)
-    return render_template('form1.html', message=message, form=form, title='Form Test 2 - Add', description='DB test', user = auth.current_user()
+    return render_template('form1.html',
+                           message=message,
+                           form=form,
+                           title='Form Test 2 - Add',
+                           description='DB test',
+                           user=auth.current_user()
 )
 
 
