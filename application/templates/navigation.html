@@ -1,0 +1,31 @@
+<!-- FROM navigation.html - CHANGE TO USE url_for here-->
+<div class="container">
+  <div class="row">
+              <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+      <header>
+          <br>
+   <nav>
+    <a href="/" class="btn btn-primary">Home</a>
+    <a href="/engineer" class="btn btn-primary">Engineer View</a>
+    <a href="/register1" class="btn btn-primary">Unallocated</a>
+    <a href="/register2" class="btn btn-primary">Create User</a>
+  </nav>
+          {%  if user %}
+          <p>Hello {{ user }}</p>
+          {% endif %}
+            {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+               <!-- check why this isn't appearing as alert properly -->
+		<div class="alert alert-warning" role="alert">
+			<strong>{{ message }}</strong>
+		</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+</header>
+  </div>
+  </div>
+</div>
+<!-- navigation.html ends here-->

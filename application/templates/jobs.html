@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+	{% include 'navigation.html' %}
+	<div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+		<div class="jumbotron">
+			<h1>{{ title }}</h1>
+			<p>{{ description }}</p>
+		</div>
+
+        {% if record %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        <a href="{{ url_for('jobs_display', id=record.job_ID) }}">VR{{ record.job_ID }}</a>
+                    </h5>
+                    <p class="card-text">Customer Last Name: {{ record.Customer_Last_Name }}</p>
+                    <p class="card-text">Address: {{ record.Address }}</p>
+                    <p class="card-text">Postcode: {{ record.Postcode }}</p>
+                    <p class="card-text">Phone_Number: {{ record.Phone_Number }}</p>
+                    <p class="card-text">Visit_Type: {{ record.Visit_Type }}</p>
+                    <p class="card-text">Staff_ID: {{ record.Staff_ID }}</p>
+                    <p class="card-text">Job_Date: {{ record.Job_Date }}</p>
+                    <p class="card-text">Start_Time: {{ record.Start_Time }}</p>
+                    <p class="card-text">End_Time: {{ record.End_Time }}</p>
+                </div>
+            </div>
+            <br><br>
+        {% else %}
+            <h2>No job details available.</h2>
+        {% endif %}
+    </div>
+{% endblock %}
