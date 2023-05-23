@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block content %}
+	{% include 'navigation.html' %}
+	<div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+		<div class="jumbotron">
+			<h1>{{ title }}</h1>
+			<p>{{ description }}</p>
+		</div>
+
+		{% if records %}
+			<h2 class="lead text-center">There are {{ records|length }} engineers in the area</h2>
+
+			{% for record in records %}
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title text-center"><a href="{{ url_for('staff_display',id=record['staff_ID']) }}">Staff ID: {{ record['staff_ID'] }}</a></h5>
+						<p class="card-text">Engineer: {{ record['First_Name'] }} {{ record['Last_Name'] }} </p>
+						<p class="card-text">Home Postcode: {{ record['Postcode'] }} </p>
+						<p class="card-text">Phone Number: {{ record['Phone_Number'] }} </p>
+					</div>
+				</div>
+				<br><br>
+			{% endfor %}
+		{% else %}
+			<h2>No engineers nearby.</h2>
+		{% endif %}
+	</div>
+{% endblock %}
+
+.card {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-text {
+  color: #666;
+  font-size: 14px;
+}
+
+.card .btn {
+  margin-right: 5px;
+}
