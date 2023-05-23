@@ -1,8 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, BooleanField,DateField, TextAreaField, SubmitField
-from wtforms.validators import InputRequired, Length, Regexp, Email
+from wtforms import StringField, SelectField, SubmitField
+from wtforms.validators import InputRequired
 
 class BasicForm(FlaskForm):
-    first_name = StringField('First Name', validators=[InputRequired(), Length(min=4, max=25, message="Fname should be between 4-25 chars")])
-    last_name = StringField('Last Name', validators=[InputRequired(), Length(min=4, max=25, message="Lname should be between 4-25 chars")])
-    submit = SubmitField('Add Actor')
+    Customer_Last_Name = StringField('Customer Last Name', validators=[InputRequired()])
+    Address = StringField('Address', validators=[InputRequired()])
+    Postcode = StringField('Postcode', validators=[InputRequired()])
+    Phone_Number = StringField('Phone Number', validators=[InputRequired()])
+    Visit_Type = SelectField('Visit Type', choices=[('DTH', 'DTH'), ('BB', 'BB'), ('SE', 'SE'), ('MDU', 'MDU'), ('FTTP', 'FTTP')], validators=[InputRequired()])
+    Staff_ID = StringField('Staff ID')
+    submit = SubmitField('Add job')

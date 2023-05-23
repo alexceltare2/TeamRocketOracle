@@ -230,3 +230,36 @@ def engineer():
         records=result,
         user=auth.current_user()
     )
+@app.route('/addjob', methods=['GET', 'POST'])
+@auth.login_required(role='admin')
+def addjob():
+    message = ""
+    form = BasicForm()
+    if form.validate_on_submit():
+        customer_last_name = form.Customer_Last_Name.data
+        address = form.Address.data
+        postcode = form.Postcode.data
+        phone_number = form.Phone_Number.data
+        visit_type = form.Visit_Type.data
+        staff_id = form.Staff_ID.data or "AAA00"
+        app.logger.info(f"{customer_last_name} being added.")
+        try:
+            cursor = get_db().cursor()
+            sql = "INSERT INTO `jobs` (Customer_Last_Name, Address, Postcode, Phone_Number, Visit_Type, Staff_ID) VALUES (%s, %s, %s, %s, %s, %s)"
+            app.logger.info(sql)
+            cursor.execute(sql, (customer_last_name, address, postcode, phone_number, visit_type, staff_id))
+            message = "Record successfully added"
+            app.logger.info(message)
+            flash(message)
+            return redirect(url_for('home'))
+        except Exception as e:
+            message = f"Error in insert operation: {e}"
+            flash(message)
+    return render_template(
+        'form1.html',
+        message=message,
+        form=form,
+        title='Add Job',
+        description='Add a job to the SQL table',
+        user=auth.current_user()
+    )
