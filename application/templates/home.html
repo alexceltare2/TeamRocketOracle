@@ -10,7 +10,7 @@
 		{% if records %}
 			<h2 class="lead text-center">There are {{ records|length }} jobs pending!</h2>
 
-			{% for record in records %}
+            {% for record in records|sort(reverse=True, attribute='job_ID') %}
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title text-center"><a href="{{ url_for('jobs_display',id=record['job_ID']) }}">VR{{ record['job_ID'] }}</a></h5>

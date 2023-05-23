@@ -1,4 +1,3 @@
-<!-- FROM navigation.html - CHANGE TO USE url_for here-->
 <div class="container">
   <div class="row">
               <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
@@ -7,7 +6,6 @@
    <nav>
     <a href="/" class="btn btn-primary">Home</a>
     <a href="/engineer_view" class="btn btn-primary">Engineer View</a>
-    <a href="/register1" class="btn btn-primary">Unallocated</a>
     <a href="/addjob" class="btn btn-primary">Create Jobs</a>
   </nav>
           {%  if user %}
@@ -16,7 +14,6 @@
             {% with messages = get_flashed_messages() %}
   {% if messages %}
     {% for message in messages %}
-               <!-- check why this isn't appearing as alert properly -->
 		<div class="alert alert-warning" role="alert">
 			<strong>{{ message }}</strong>
 		</div>

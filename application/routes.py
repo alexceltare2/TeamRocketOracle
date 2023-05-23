@@ -100,8 +100,6 @@ def engineer_view():
 
 @app.route('/staff/<id>')
 def staff_display(id):
-    """ Third page. Param displaying from Actor table
-    """
     app.logger.info(id)
     cursor = get_db().cursor()
     cursor.execute("SELECT * FROM Staff WHERE staff_id=%s ",id)
@@ -109,69 +107,9 @@ def staff_display(id):
     app.logger.info(result)
     return render_template(
                 'staff.html',
-                title="Third database query - using actor template, passing parameter to query",
-                description=f"Another db query with parameter from url: staff_id={id}.",
+                title="Staff ID info Card.",
+                description=f"Staff details provided below: staff_id={id}.",
                 record=result
-    )
-
-@app.route('/engineer_view', methods=['GET', 'POST'])
-@auth.login_required(role="admin")
-def register():
-    """ Basic form.
-    """
-    error = ""
-    form = BasicForm()  # create form instance
-
-    if request.method == "POST":
-        first_name = form.first_name.data
-        last_name = form.last_name.data
-
-        app.logger.info(f"We were given: {first_name} {last_name}")
-
-        if len(first_name) == 0 or len(last_name) == 0:
-            error = "Please supply both first and last names."
-        else:
-            return 'Thank you!'
-
-    return render_template(
-        'form1.html',
-        title="Simple form!",
-        description=f"Using Flask with a form on {get_date()}",
-        form=form,
-        message=error,
-        user=auth.current_user()
-    )
-
-@app.route('/register2', methods=['GET', 'POST'])
-@auth.login_required(role='admin')
-def register2():
-    """ Second form.
-    """
-    message = ""
-    form = BasicForm()  # create form instance
-    if form.validate_on_submit():
-        first_name = form.first_name.data
-        last_name = form.last_name.data
-        app.logger.info(f"{first_name} {last_name} being added.")
-        try:
-            cursor = get_db().cursor()
-            sql = "INSERT INTO `jobs` (first_name, last_name) VALUES (%s, %s)"
-            app.logger.info(sql)
-            cursor.execute(sql, (first_name.upper(), last_name.upper()))
-            message = "Record successfully added"
-            app.logger.info(message)
-            flash(message)
-            return redirect(url_for('home'))
-        except Exception as e:
-            message = f"Error in insert operation: {e}"
-            flash(message)
-    return render_template(
-        'form1.html',
-        message=message,
-        form=form,
-        title='Form Test 2 - Add',
-        description='DB test',
-        user=auth.current_user()
     )
 
 def get_job_record_by_id(id):
@@ -183,7 +121,6 @@ def get_job_record_by_id(id):
 @app.route('/jobs/display/<int:id>', methods=['GET'])
 @auth.login_required
 def jobs_display(id):
-    # Logic to retrieve job record by ID and assign it to the `job_record` variable
     job_record = get_job_record_by_id(id)
     if job_record:
         return render_template(
@@ -198,8 +135,6 @@ def jobs_display(id):
 @app.route('/jobs/delete/<int:id>')
 @auth.login_required(role='admin')
 def jobs_delete(id):
-    """ Fourth route. Param for deleting from jobs table
-    """
     app.logger.info(id)
     try:
         cursor = get_db().cursor()
@@ -259,7 +194,7 @@ def addjob():
         'form1.html',
         message=message,
         form=form,
-        title='Add Job',
-        description='Add a job to the SQL table',
+        title='Job Creation Form.',
+        description='Please fill in all details, If no engineer is assigned to this job yet, this may be left blank. ',
         user=auth.current_user()
     )
