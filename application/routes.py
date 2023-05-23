@@ -52,7 +52,7 @@ def close_db(error):
 def get_date():
     """ Function to return (fake) date - TASK: Update this - Add the code to pass the current date to the home HTML template.
     """
-    today = "Today"
+    today = "today"
     app.logger.info(f"In get_date function! Update so it returns the correct date! {today}")
     return today
 
@@ -78,8 +78,44 @@ def home():
         user=auth.current_user()
     )
 
-@app.route('/register1', methods=['GET', 'POST'])
+
+@app.route('/engineer_view', methods=['GET', 'POST'])
 @auth.login_required
+def engineer_view():
+    cursor = get_db().cursor()
+    cursor.execute("SELECT staff_ID, First_Name, Last_Name, Postcode, Phone_Number FROM Staff")
+    result = cursor.fetchall()
+    if auth.current_user() == "admin":
+        logged = "Admin"
+    else:
+        logged = "Engineer"
+    app.logger.info(result)
+    return render_template(
+        'engineer_view.html',
+        title="Welcome to the Engineer View.",
+        description=f"You are logged in as {logged}.",
+        records=result,
+        user=auth.current_user()
+    )
+
+@app.route('/staff/<id>')
+def staff_display(id):
+    """ Third page. Param displaying from Actor table
+    """
+    app.logger.info(id)
+    cursor = get_db().cursor()
+    cursor.execute("SELECT * FROM Staff WHERE staff_id=%s ",id)
+    result = cursor.fetchone()
+    app.logger.info(result)
+    return render_template(
+                'staff.html',
+                title="Third database query - using actor template, passing parameter to query",
+                description=f"Another db query with parameter from url: staff_id={id}.",
+                record=result
+    )
+
+@app.route('/engineer_view', methods=['GET', 'POST'])
+@auth.login_required(role="admin")
 def register():
     """ Basic form.
     """
