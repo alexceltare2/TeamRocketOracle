@@ -13,10 +13,8 @@
                     <h5 class="card-title text-center">
                         <a href="{{ url_for('staff_display', id=record.Staff_ID) }}">{{ record.Staff_ID }}</a>
                     </h5>
-                    <p class="card-text">First Name:  {{ record.First_Name }}</p>
-                    <p class="card-text">Last Name: {{ record['Last_Name'] }}</p>
-                    <p class="card-text">Postcode: {{ record['Postcode'] }}</p>
-                    <p class="card-text">Phone Number: {{ record['Phone_Number'] }}</p>
+                    <p class="card-text">{{ record.First_Name }} {{ record['Last_Name'] }}</p>
+                    <p class="card-text">Postcode: {{ record['Postcode'] }}, Phone Number: {{ record['Phone_Number'] }}</p>
 
                     <table class="table">
                         <thead>
@@ -44,7 +42,7 @@
                             </tr>
                             <tr>
                                 <td>FTTP</td>
-                                <td>{{ record['FTTP_Skill'] }}</td>
+                                <td>{{ record['FTTP_Skilll'] }}</td>
                             </tr>
                         </tbody>
                     </table>
