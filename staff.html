@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% include 'navigation.html' %}
+    <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+        <div class="jumbotron">
+            <h1>{{ title }}</h1>
+            <p>{{ description }}</p>
+        </div>
+
+        {% if record %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        <a href="{{ url_for('staff_display', id=record.Staff_ID) }}">{{ record.Staff_ID }}</a>
+                    </h5>
+                    <p class="card-text">{{ record.First_Name }} {{ record['Last_Name'] }}</p>
+                    <p class="card-text">Postcode: {{ record['Postcode'] }}, Phone Number: {{ record['Phone_Number'] }}</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Skill</th>
+                                <th>Yes/No</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DTH</td>
+                                <td>{{ record['DTH-Skill'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>BB</td>
+                                <td>{{ record['BB_Skill'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>SE</td>
+                                <td>{{ record['SE_Skill'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>MDU</td>
+                                <td>{{ record['MDU_Skill'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>FTTP</td>
+                                <td>{{ record['FTTP_Skilll'] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br><br>
+        {% else %}
+            <h2>No records returned.</h2>
+        {% endif %}
+    </div>
+{% endblock %}

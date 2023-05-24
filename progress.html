@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% include 'navigation.html' %}
+    <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+        <div class="jumbotron">
+            <h1>{{ title }}</h1>
+            <p>{{ description }}</p>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Visit Type</th>
+                        <th>Unassigned</th>
+                        <th>Assigned to Engineer</th>
+                        <th>Incomplete</th>
+                        <th>Complete</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DTH</td>
+                        <td>{{ unassigned_dth }}</td>
+                        <td>{{ assigned_dth }}</td>
+                        <td>{{ incomplete_dth }}</td>
+                        <td>{{ complete_dth }}</td>
+                        <td>{{ total_dth }}</td>
+                    </tr>
+                    <tr>
+                        <td>BB</td>
+                        <td>{{ unassigned_bb }}</td>
+                        <td>{{ assigned_bb }}</td>
+                        <td>{{ incomplete_bb }}</td>
+                        <td>{{ complete_bb }}</td>
+                        <td>{{ total_bb }}</td>
+                    </tr>
+                    <tr>
+                        <td>SE</td>
+                        <td>{{ unassigned_se }}</td>
+                        <td>{{ assigned_se }}</td>
+                        <td>{{ incomplete_se }}</td>
+                        <td>{{ complete_se }}</td>
+                        <td>{{ total_se }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDU</td>
+                        <td>{{ unassigned_mdu }}</td>
+                        <td>{{ assigned_mdu }}</td>
+                        <td>{{ incomplete_mdu }}</td>
+                        <td>{{ complete_mdu }}</td>
+                        <td>{{ total_mdu }}</td>
+                    </tr>
+                    <tr>
+                        <td>FTTP</td>
+                        <td>{{ unassigned_fttp }}</td>
+                        <td>{{ assigned_fttp }}</td>
+                        <td>{{ incomplete_fttp }}</td>
+                        <td>{{ complete_fttp }}</td>
+                        <td>{{ total_fttp }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>{{ total_unassigned }}</td>
+                        <td>{{ total_assigned }}</td>
+                        <td>{{ total_incomplete }}</td>
+                        <td>{{ total_complete }}</td>
+                        <td>{{ grand_total }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
