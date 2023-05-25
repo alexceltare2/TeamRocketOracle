@@ -1,5 +1,5 @@
 from application import app
-from application.forms import BasicForm
+from application.forms import BasicForm, StaffForm
 from flask import render_template, request, g, flash, redirect, url_for
 import pymysql
 from flask_httpauth import HTTPBasicAuth
@@ -196,5 +196,45 @@ def addjob():
         form=form,
         title='Job Creation Form.',
         description='Please fill in all details, If no engineer is assigned to this job yet, this may be left blank. ',
+        user=auth.current_user()
+    )
+
+@app.route('/addstaff', methods=['GET', 'POST'])
+@auth.login_required(role='admin')
+def addstaff():
+    message = ""
+    form = StaffForm()
+    if form.validate_on_submit():
+        Staff_ID = form.Staff_ID.data
+        First_Name = form.First_Name.data
+        Last_Name = form.Last_Name.data
+        Address = form.Address.data
+        Postcode = form.Postcode.data
+        Phone_Number = form.Phone_Number.data
+        DTH_Skill = form.DTH_Skill.data
+        BB_Skill = form.BB_Skill.data
+        SE_Skill = form.SE_Skill.data
+        MDU_Skill = form.MDU_Skill.data
+        FTTP_Skilll = form.FTTP_Skilll.data
+        Admin = form.Admin.data
+        Password = form.Password.data
+        try:
+            cursor = get_db().cursor()
+            sql = "INSERT INTO `staff` (Staff_ID, First_Name, Last_Name, Address, Postcode, Phone_Number, DTH_Skill, BB_Skill, SE_Skill, MDU_Skill, FTTP_Skilll, Admin, Password) VALUES (%s, %s, %s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,)"
+            app.logger.info(sql)
+            cursor.execute(sql, (Staff_ID, First_Name, Last_Name, Address, Postcode, Phone_Number, DTH_Skill, BB_Skill, SE_Skill, MDU_Skill, FTTP_Skilll, Admin, Password))
+            message = "Record successfully added"
+            app.logger.info(message)
+            flash(message)
+            return redirect(url_for('home'))
+        except Exception as e:
+            message = f"Error in insert operation: {e}"
+            flash(message)
+    return render_template(
+        'form1.html',
+        message=message,
+        form=form,
+        title='Staff Creation Form.',
+        description='Please fill in all details. Do not leave any blank lines.',
         user=auth.current_user()
     )
