@@ -71,7 +71,7 @@ def get_date():
 @auth.login_required
 def home():
     cursor = get_db().cursor()
-    cursor.execute("SELECT job_ID, Customer_Last_Name, Address, Postcode FROM Jobs")
+    cursor.execute(f"SELECT job_ID, Customer_Last_Name, Address, Postcode FROM Jobs WHERE Staff_ID IN ('{auth.current_user()}')")
     result = cursor.fetchall()
     if get_user_roles(auth.current_user())==['admin']:
         logged = "Admin"
