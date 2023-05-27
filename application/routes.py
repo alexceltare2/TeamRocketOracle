@@ -78,6 +78,10 @@ def home():
         user=auth.current_user()
     )
 
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    return redirect(url_for('home')), 401
+
 
 @app.route('/engineer_view', methods=['GET', 'POST'])
 @auth.login_required
