@@ -4,28 +4,7 @@ from flask import render_template, request, g, flash, redirect, url_for
 import pymysql
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
-
-### HTTP Authorization
-auth = HTTPBasicAuth()
-
-users = {
-    "admin": generate_password_hash("admin"),
-    "user": generate_password_hash("user")
-}
-roles = {
-    "admin": ['admin'],
-    "user": []
-}
-
-@auth.verify_password
-def verify_password(username, password):
-    if username in users and check_password_hash(users.get(username), password):
-        return username
-
-@auth.get_user_roles
-def get_user_roles(user):
-    return roles[user]
-### End HTTP Authorization
+import itertools
 
 # Section 2: HELPER FUNCTIONS e.g. DB connection code and methods
 def connect_db():
@@ -47,6 +26,35 @@ def close_db(error):
     if hasattr(g, 'db'):
         g.db.close()
 
+# This retrieves users and passwords from the database to be paired and enumerated in the users and roles list
+with app.app_context():
+    my_cursor = get_db().cursor()
+    my_cursor.execute("SELECT Staff_ID from staff")
+    my_users = [index['Staff_ID'] for index in my_cursor.fetchall()]
+    my_cursor.execute("SELECT Password from staff")
+    my_passwords_hashed = [generate_password_hash(index['Password']) for index in my_cursor.fetchall()]
+    my_cursor.execute("SELECT Staff_ID FROM staff WHERE Admin = 'Yes'")
+    my_admins = [index['Staff_ID'] for index in my_cursor.fetchall()]
+    #my_list = my_cursor.fetchall()
+
+### HTTP Authorization
+auth = HTTPBasicAuth()
+
+users = dict(zip(my_users, my_passwords_hashed))
+roles = dict(zip(my_users, itertools.repeat([])))
+for i in roles.keys():
+    if i in my_admins:
+        roles[i] = ['admin']
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and check_password_hash(users.get(username), password):
+        return username
+
+@auth.get_user_roles
+def get_user_roles(user):
+    return roles[user]
+### End HTTP Authorization
 
 # Helper methods
 def get_date():
@@ -65,7 +73,7 @@ def home():
     cursor = get_db().cursor()
     cursor.execute("SELECT job_ID, Customer_Last_Name, Address, Postcode FROM Jobs")
     result = cursor.fetchall()
-    if auth.current_user() == "admin":
+    if get_user_roles(auth.current_user())==['admin']:
         logged = "Admin"
     else:
         logged = "Engineer"
@@ -75,7 +83,8 @@ def home():
         title="Welcome to the Oracle job system.",
         description=f"You are logged in as {logged}.",
         records=result,
-        user=auth.current_user()
+        user=auth.current_user(),
+        role=get_user_roles(auth.current_user())
     )
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -89,7 +98,7 @@ def engineer_view():
     cursor = get_db().cursor()
     cursor.execute("SELECT staff_ID, First_Name, Last_Name, Postcode, Phone_Number FROM Staff")
     result = cursor.fetchall()
-    if auth.current_user() == "admin":
+    if get_user_roles(auth.current_user())==['admin']:
         logged = "Admin"
     else:
         logged = "Engineer"
@@ -99,10 +108,12 @@ def engineer_view():
         title="Welcome to the Engineer View.",
         description=f"You are logged in as {logged}.",
         records=result,
-        user=auth.current_user()
+        user=auth.current_user(),
+        role=get_user_roles(auth.current_user())
     )
 
 @app.route('/staff/<id>')
+@auth.login_required(role='admin')
 def staff_display(id):
     app.logger.info(id)
     cursor = get_db().cursor()
