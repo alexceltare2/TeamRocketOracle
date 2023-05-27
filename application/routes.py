@@ -253,3 +253,58 @@ def addstaff():
         description='Please fill in all details. Do not leave any blank lines.',
         user=auth.current_user()
     )
+
+
+
+@app.route('/start_job/<int:id>', methods=['POST'])
+@auth.login_required
+def start_job(id):
+    cursor = get_db().cursor()
+    cursor.execute("SELECT Start_Time FROM Jobs WHERE job_ID = %s", (id,))
+    start_time = cursor.fetchone()
+    if start_time and start_time['Start_Time']:
+        flash("Job already started at: " + str(start_time['Start_Time']))
+    else:
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            cursor.execute("UPDATE Jobs SET Start_Time = %s WHERE job_ID = %s", (current_time, id))
+            flash("Job started successfully!")
+        except Exception as e:
+            flash(f"Failed to start job: {e}")
+    return redirect(url_for('home'))
+
+@app.route('/end_job/<int:id>', methods=['POST'])
+@auth.login_required
+def end_job(id):
+    cursor = get_db().cursor()
+    cursor.execute("SELECT End_Time FROM Jobs WHERE job_ID = %s", (id,))
+    end_time = cursor.fetchone()
+    if end_time and end_time['End_Time']:
+        flash("Job already Completed at: " + str(end_time['End_Time']))
+    else:
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            cursor.execute("UPDATE Jobs SET End_Time = %s, Is_Not_Done = 'NO' WHERE job_ID = %s", (current_time, id))
+            flash("Job completed successfully!")
+        except Exception as e:
+            flash(f"Failed to end job: {e}")
+    return redirect(url_for('home'))
+
+@app.route('/is_not_done/<int:id>', methods=['POST'])
+@auth.login_required
+def is_not_done(id):
+    cursor = get_db().cursor()
+    cursor.execute("SELECT Is_Not_Done FROM Jobs WHERE job_ID = %s", (id,))
+    is_not_done = cursor.fetchone()
+    if is_not_done and is_not_done['Is_Not_Done']:
+        flash("Job flagged as not done: " + str(is_not_done['Is_Not_Done']))
+    else:
+        try:
+            cursor.execute("UPDATE Jobs SET Is_Not_Done = 'Yes' WHERE job_ID = %s", (id,))
+            flash("Job Not Done!")
+        except Exception as e:
+            flash(f"Failed to flag job as not done: {e}")
+    return redirect(url_for('home'))
+
+
+
