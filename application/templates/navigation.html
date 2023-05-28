@@ -1,19 +1,26 @@
 <div class="container">
-  <div class="row">
-              <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
-      <header>
-          <br>
-   <nav>
-    <a href="/" class="btn btn-primary">Home</a>
-    <a href="/progress" class="btn btn-primary">Progress Report</a>
-                 {%  if role==['admin'] %}
-    <a href="/engineer_view" class="btn btn-primary">Engineer View</a>
-    <a href="/addjob" class="btn btn-primary">Create Jobs</a>
-    <a href="/addstaff" class="btn btn-primary">Create Staff</a>
-                {% endif %}
-    <a href="/logout" class="btn btn-primary">Log Out</a>
-  </nav>
-          {%  if user %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">
+    <img src="/static/Logo.png" width="65" height="60" class="d-inline-block align-top" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/progress">Progress Report</a>
+        {%  if role==['admin'] %}
+      <a class="nav-item nav-link" href="/engineer_view">View Engineers</a>
+      <a class="nav-item nav-link" href="/addjob">Add a Job</a>
+      <a class="nav-item nav-link" href="/addstaff">Create Staff</a>
+        {% endif %}
+      <a class="nav-item nav-link" href="/logout">Log Out</a>
+    </div>
+  </div>
+</nav>
+         {%  if user %}
           <p>Hello {{ user }}</p>
           {% endif %}
             {% with messages = get_flashed_messages() %}
@@ -26,8 +33,6 @@
   {% endif %}
 {% endwith %}
 
-</header>
-  </div>
-  </div>
 </div>
 <!-- navigation.html ends here-->
+

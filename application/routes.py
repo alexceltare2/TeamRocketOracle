@@ -71,7 +71,7 @@ def get_date():
 @auth.login_required
 def home():
     cursor = get_db().cursor()
-    cursor.execute(f"SELECT job_ID, Customer_Last_Name, Address, Postcode FROM Jobs WHERE Staff_ID IN ('{auth.current_user()}')")
+    cursor.execute(f"SELECT job_ID, Customer_Last_Name, Address, Postcode FROM Jobs WHERE Staff_ID IN ('{auth.current_user()}') AND Is_Not_Done IS NULL")
     result = cursor.fetchall()
     if get_user_roles(auth.current_user())==['admin']:
         logged = "Admin"
@@ -119,12 +119,15 @@ def staff_display(id):
     cursor = get_db().cursor()
     cursor.execute("SELECT * FROM Staff WHERE staff_id=%s ",id)
     result = cursor.fetchone()
+    cursor.execute("SELECT job_ID, Customer_Last_Name, Address, Postcode FROM Jobs WHERE Staff_ID=%s", id)
+    result2 = cursor.fetchall()
     app.logger.info(result)
     return render_template(
                 'staff.html',
-                title="Staff ID info Card.",
-                description=f"Staff details provided below: staff_id={id}.",
-                record=result
+                title="Staff info Card",
+                description=f"Staff details provided below: {id}.",
+                record=result,
+                jobs=result2
     )
 
 def get_job_record_by_id(id):
@@ -211,7 +214,8 @@ def addjob():
         form=form,
         title='Job Creation Form.',
         description='Please fill in all details, If no engineer is assigned to this job yet, this may be left blank. ',
-        user=auth.current_user()
+        user=auth.current_user(),
+        role=get_user_roles(auth.current_user())
     )
 
 @app.route('/addstaff', methods=['GET', 'POST'])
@@ -251,10 +255,29 @@ def addstaff():
         form=form,
         title='Staff Creation Form.',
         description='Please fill in all details. Do not leave any blank lines.',
-        user=auth.current_user()
+        user=auth.current_user(),
+        role=get_user_roles(auth.current_user())
     )
 
-
+@app.route('/progress', methods=['GET', 'POST'])
+@auth.login_required
+def progress():
+    cursor = get_db().cursor()
+    cursor.execute(f"SELECT job_ID, Customer_Last_Name, Address, Postcode, End_Time, Is_Not_Done FROM Jobs WHERE Staff_ID IN ('{auth.current_user()}') AND Is_Not_Done IS NOT NULL")
+    result = cursor.fetchall()
+    if get_user_roles(auth.current_user())==['admin']:
+        logged = "Admin"
+    else:
+        logged = "Engineer"
+    app.logger.info(result)
+    return render_template(
+        'progress.html',
+        title="Welcome to the Oracle job system.",
+        description=f"You are logged in as {logged}.",
+        records=result,
+        user=auth.current_user(),
+        role=get_user_roles(auth.current_user())
+    )
 
 @app.route('/start_job/<int:id>', methods=['POST'])
 @auth.login_required

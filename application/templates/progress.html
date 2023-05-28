@@ -1,73 +1,53 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {% include 'navigation.html' %}
-    <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
-        <div class="jumbotron">
-            <h1>{{ title }}</h1>
-            <p>{{ description }}</p>
+	{% include 'navigation.html' %}
+	<div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+		<div class="jumbotron">
+			<h1>{{ title }}</h1>
+			<p>{{ description }}</p>
+		</div>
+        {% if records %}
+            <h2 class="lead text-center">There are {{ records|length }} jobs historically!</h2>
 
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Visit Type</th>
-                        <th>Unassigned</th>
-                        <th>Assigned to Engineer</th>
-                        <th>Incomplete</th>
-                        <th>Complete</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>DTH</td>
-                        <td>{{ unassigned_dth }}</td>
-                        <td>{{ assigned_dth }}</td>
-                        <td>{{ incomplete_dth }}</td>
-                        <td>{{ complete_dth }}</td>
-                        <td>{{ total_dth }}</td>
-                    </tr>
-                    <tr>
-                        <td>BB</td>
-                        <td>{{ unassigned_bb }}</td>
-                        <td>{{ assigned_bb }}</td>
-                        <td>{{ incomplete_bb }}</td>
-                        <td>{{ complete_bb }}</td>
-                        <td>{{ total_bb }}</td>
-                    </tr>
-                    <tr>
-                        <td>SE</td>
-                        <td>{{ unassigned_se }}</td>
-                        <td>{{ assigned_se }}</td>
-                        <td>{{ incomplete_se }}</td>
-                        <td>{{ complete_se }}</td>
-                        <td>{{ total_se }}</td>
-                    </tr>
-                    <tr>
-                        <td>MDU</td>
-                        <td>{{ unassigned_mdu }}</td>
-                        <td>{{ assigned_mdu }}</td>
-                        <td>{{ incomplete_mdu }}</td>
-                        <td>{{ complete_mdu }}</td>
-                        <td>{{ total_mdu }}</td>
-                    </tr>
-                    <tr>
-                        <td>FTTP</td>
-                        <td>{{ unassigned_fttp }}</td>
-                        <td>{{ assigned_fttp }}</td>
-                        <td>{{ incomplete_fttp }}</td>
-                        <td>{{ complete_fttp }}</td>
-                        <td>{{ total_fttp }}</td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>{{ total_unassigned }}</td>
-                        <td>{{ total_assigned }}</td>
-                        <td>{{ total_incomplete }}</td>
-                        <td>{{ total_complete }}</td>
-                        <td>{{ grand_total }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            {% for record in records|sort(reverse=False, attribute='End_Time') %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><a href="{{ url_for('jobs_display', id=record['job_ID']) }}">VR{{ record['job_ID'] }}</a></h5>
+                        <p class="card-text">Customer name: {{ record['Customer_Last_Name'] }}</p>
+                        <p class="card-text">Address: {{ record['Address'] }} Postcode: {{ record['Postcode'] }}</p>
+                        <p class="card-text">Job completed at: {{ record['End_Time'] }}</p>
+                        <p class="card-text">Was it a not done?: {{ record['Is_Not_Done'] }}</p>
+                        <br>
+                    </div>
+                </div>
+                <br><br>
+            {% endfor %}
+        {% else %}
+            <h2>No historical records.</h2>
+        {% endif %}
     </div>
 {% endblock %}
+
+
+.card {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-text {
+  color: #666;
+  font-size: 14px;
+}
+
+.card .btn {
+  margin-right: 5px;
+}

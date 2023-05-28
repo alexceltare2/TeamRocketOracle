@@ -13,7 +13,7 @@
 			{% for record in records %}
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title text-center"><a href="{{ url_for('staff_display',id=record['staff_ID']) }}">Staff ID: {{ record['staff_ID'] }}</a></h5>
+						<h5 class="card-title text-center"><a href="{{ url_for('staff_display',id=record['staff_ID']) }}">{{ record['staff_ID'] }}</a></h5>
 						<p class="card-text">Engineer: {{ record['First_Name'] }} {{ record['Last_Name'] }} </p>
 						<p class="card-text">Home Postcode: {{ record['Postcode'] }} </p>
 						<p class="card-text">Phone Number: {{ record['Phone_Number'] }} </p>
