@@ -6,15 +6,17 @@
 			<h1>{{ title }}</h1>
 			<p>{{ description }}</p>
 		</div>
+
         {% if records %}
             <h2 class="lead text-center">There are {{ records|length }} jobs historically!</h2>
 
-            {% for record in records|sort(reverse=False, attribute='End_Time') %}
+            {% for record in records %}
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title text-center"><a href="{{ url_for('jobs_display', id=record['job_ID']) }}">VR{{ record['job_ID'] }}</a></h5>
                         <p class="card-text">Customer name: {{ record['Customer_Last_Name'] }}</p>
                         <p class="card-text">Address: {{ record['Address'] }} Postcode: {{ record['Postcode'] }}</p>
+                        <p class="card-text">Job started at: {{ record['Start_Time'] }}</p>
                         <p class="card-text">Job completed at: {{ record['End_Time'] }}</p>
                         <p class="card-text">Was it a not done?: {{ record['Is_Not_Done'] }}</p>
                         <br>
@@ -22,6 +24,7 @@
                 </div>
                 <br><br>
             {% endfor %}
+
         {% else %}
             <h2>No historical records.</h2>
         {% endif %}

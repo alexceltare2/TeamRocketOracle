@@ -24,4 +24,4 @@ class StaffForm(FlaskForm):
     MDU_Skill = SelectField('MDU Trained', choices=[('Yes', 'Yes'), ('No', 'No')])
     FTTP_Skilll = SelectField('FTTP Trained', choices=[('Yes', 'Yes'), ('No', 'No')])
     Admin = SelectField('Set to Admin access?', choices=[('Yes', 'Yes'), ('No', 'No')])
-    submit = SubmitField('Add job')
+    submit = SubmitField('Add staff')
