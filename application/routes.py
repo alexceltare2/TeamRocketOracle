@@ -79,6 +79,25 @@ def home():
         role=get_user_roles(auth.current_user())
     )
 
+@app.route('/All_Jobs', methods=['GET', 'POST'])
+@auth.login_required
+def alljobs():
+    cursor = get_db().cursor()
+    cursor.execute(f"SELECT job_ID, Customer_Last_Name, Address, Postcode FROM Jobs WHERE Is_Not_Done IS NULL")
+    result = cursor.fetchall()
+    if get_user_roles(auth.current_user())==['admin']:
+        logged = "Admin"
+    else:
+        logged = "Engineer"
+    return render_template(
+        'All_Jobs.html',
+        title="Welcome to the Oracle job system.",
+        description=f"You are logged in as {logged}.",
+        records=result,
+        user=auth.current_user(),
+        role=get_user_roles(auth.current_user())
+    )
+
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     return redirect(url_for('home')), 401

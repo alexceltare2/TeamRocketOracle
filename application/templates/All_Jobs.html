@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block content %}
+	{% include 'navigation.html' %}
+	<div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+		<div class="jumbotron">
+			<h1>{{ title }}</h1>
+			<p>{{ description }}</p>
+		</div>
+
+        {% if records %}
+            <h2 class="lead text-center">There are {{ records|length }} jobs booked for today!</h2>
+
+            {% for record in records|sort(reverse=True, attribute='job_ID') %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><a href="{{ url_for('jobs_display', id=record['job_ID']) }}">VR{{ record['job_ID'] }}</a></h5>
+                        <p class="card-text">Customer name: {{ record['Customer_Last_Name'] }}</p>
+                        <p class="card-text">Address: {{ record['Address'] }} Postcode: {{ record['Postcode'] }}</p>
+                        <br>
+                        {% if record['Start_Time'] %}
+                            <p class="card-text">Job started at: {{ record['Start_Time'] }}</p>
+                        {% else %}
+                            <form action="{{ url_for('start_job', id=record['job_ID']) }}" method="POST">
+                                <button type="submit" class="btn btn-primary">Start</button>
+                            </form>
+                        <br>
+                        {% endif %}
+                        {% if record['Start_Time'] %}
+                            <p class="card-text">Job finished at: {{ record['End_Time'] }}</p>
+                        {% else %}
+                            <form action="{{ url_for('end_job', id=record['job_ID']) }}" method="POST">
+                                <button type="submit" class="btn btn-success">Done</button>
+                            </form>
+                        <br>
+                        {% endif %}
+                        {% if record['Is_Not_Done'] %}
+                            <p class="card-text">Job Not Done: {{ record['Is_Not_Done'] }}</p>
+                        {% else %}
+                            <form action="{{ url_for('is_not_done', id=record['job_ID']) }}" method="POST">
+                                <button type="submit" class="btn btn-danger">Not Done</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                <br><br>
+            {% endfor %}
+        {% else %}
+            <h2>No jobs available.</h2>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+.card {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-text {
+  color: #666;
+  font-size: 14px;
+}
+
+.card .btn {
+  margin-right: 5px;
+}
